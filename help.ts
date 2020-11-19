@@ -8,8 +8,9 @@ export function help(input: string): MessageEmbed {
         return embed
         .setTitle("Help")
         .setDescription(
-            "toki! You can play word games in toki pona with me.\n" + 
-            `Type \`${prefix}help [command]\` for more information. musi pona!`
+            "toki! You can play word games in toki pona with me. " + 
+            `Here is the list of my commands, type \`${prefix}[command]\` to use one of these. ` + 
+            `Type \`${prefix}help [command]\` to get more information about it. musi pona!`
         )
         .addField(
             "__Games / musi__",
@@ -27,47 +28,43 @@ export function help(input: string): MessageEmbed {
     else switch (input) {
         case "n":
             return embed
-            .setTitle("nimi ni li seme?")
+            .setTitle("nimi ni li seme? (guess the name)")
             .setDescription(
-                "I choose a tokiponized version of a place or language name (e. g. ma Motowa, toki Sumi etc.), and " + 
-                "you have to guess its English equivalent. If you succeed, you extend your streak. " + 
-                "Otherwise, the streak goes to zero, but the biggest streak is saved.\n\n" + 
-                `\`${prefix}n\` show the last unguessed name or choose a new one\n` + 
-                `\`${prefix}n [...]\` make your guess and choose a next name\n` + 
+                "Guess a place or language name in toki pona. Try to get a long streak!\n\n" + 
+                `\`${prefix}n\` guess a new name (or last one, if there is)\n` + 
+                `\`${prefix}n [...]\` make your guess and play again\n` + 
                 `\`${prefix}n -[...]\` make your guess and stop`
             );
         case "a":
             return embed
-            .setTitle("alasa sitelen")
+            .setTitle("alasa sitelen (hangman)")
             .setDescription(
-                "I choose a toki pona word, and you have to guess it letter by letter. " + 
+                "Guess a toki pona word letter by letter. " + 
                 "If your letter occurs many times within the word, only one is shown. " + 
-                "You can make only 5 mistakes. But no worries, no one will be hanged in the end:)\n\n" + 
-                `\`${prefix}a\` start a new game or continue the last one\n` + 
+                "You can make only 5 mistakes. At least, no one will be hanged in the end...\n\n" + 
+                `\`${prefix}a\` start a new game (or continue the last one, if there is)\n` + 
                 `\`${prefix}a [letter]\` make your guess\n` + 
                 `\`${prefix}a [word]\` guess the whole word (finishes the game)`
             );
         case "l":
             return embed
-            .setTitle("linja nimi")
+            .setTitle("linja nimi (word chain)")
             .setDescription(
                 "We play against each other. " + 
-                "You say the first word. Every next word must start with a letter in the last word’s syllable " + 
-                "(e. g. suno -> olin -> laso -> sike etc.) No word can be repeated within a game. " + 
-                "Whoever says the last word wins " + 
-                "(opponent has no words to continue the thread or all pu words have been used). " + 
+                "You say the first word, and " + 
+                "every next word must start with a letter in the last word’s syllable " + 
+                "(e. g. suno -> olin -> laso -> sike etc.). No word can be repeated within a game. " + 
+                "You win if your opponent has no words to continue the chain. " + 
                 "Be aware, I am not spitting random words. Beat me if you can!\n\n" + 
-                `\`${prefix}l\` start a new game or continue the last one\n` + 
-                `\`${prefix}l [...]\` make your turn by the rules\n` + 
+                `\`${prefix}l\` start a new game (or continue the last one, if there is)\n` + 
+                `\`${prefix}l [...]\` make your turn\n` + 
                 `\`${prefix}l hint\` show all of your options\n` + 
-                `\`${prefix}l cancel\` cancel the game. This counts as loosing in your stats.`
+                `\`${prefix}l cancel\` cancel the game (counts as loosing)`
             )
         case "set":
             return embed
             .setTitle("Settings")
-            .setDescription(
-                "This command changes your settings."
-            )
+            .setDescription("This command changes your settings.")
             .addField(
                 "__nimi ni li seme?__ `n`",
                 `\`${prefix}set n ale\` ` + 
@@ -88,7 +85,7 @@ export function help(input: string): MessageEmbed {
         case "stats":
             return embed
             .setTitle("Statistics")
-            .setDescription("Shows your scores in the games.");
+            .setDescription(`\`${prefix}stats\` shows your scores in the games.`);
         case "mu":
             return embed
             .setTitle("mu")

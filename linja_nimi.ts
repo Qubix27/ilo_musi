@@ -98,14 +98,6 @@ export class LinjaNimi extends Game {
         this.account.update();
     }
 
-    make_move(options: string[], check: boolean = false): string {
-        const word = options[options.length * Math.random() << 0];
-        if (check && !this.options(word).length) return `${word}\n${this.end(false)}`;
-        this.account.ln_stats.last_word = word;
-        this.remove(word);
-        return word;
-    }
-
     play(word: string): string {
         this.remove(word);
         const graph = new Graph(this.account.ln_stats.words_left);

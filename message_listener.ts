@@ -26,11 +26,6 @@ export function message_listener(message: Message) {
         );
     }
 
-    if (str.startsWith("toki")) {
-        reply("toki!");
-        return;
-    }
-
     switch (command) {
         case 'n':
             reply((new NimiNiLiSeme(message.author.id)).respond(input));
