@@ -14,9 +14,9 @@ export function help(input: string): MessageEmbed {
         )
         .addField(
             "__Games / musi__",
-            "**nimi ni li seme?** `n`\n" + 
-            "**alasa sitelen** `a`\n" + 
-            "**linja nimi** `l`"
+            "**nimi ni li seme?** (guess the word) `n`\n" + 
+            "**alasa sitelen** (hangman) `a`\n" + 
+            "**linja nimi** (word chain) `l`"
         )
         .addField(
             "__Other / ante__",
