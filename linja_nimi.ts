@@ -7,7 +7,6 @@ export class LinjaNimi extends Game {
         const stats = this.account.ln_stats;
         switch (input) {
             case "hint":
-            case "h":
                 if (stats.game_started) {
                     if (stats.last_word)
                         return this.options(stats.last_word).join(", ");
@@ -15,7 +14,6 @@ export class LinjaNimi extends Game {
                 }
                 else return "sina open ala e musi pi linja nimi.";
             case "cancel":
-            case "c":
                 if (stats.game_started) {
                     if (stats.last_word)
                         return `musi ni pi linja nimi li pini. sina wile ala awen la ${this.end(false)}`;

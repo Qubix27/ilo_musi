@@ -13,20 +13,18 @@ export function help(input: string): MessageEmbed {
         )
         .addField(
             "__Games / musi__",
-            "**nimi ni li seme?** `nnls`, `n`\n" + 
-            "**alasa sitelen** `as`, `a`\n" + 
-            "**linja nimi** `ln`, `l`"
+            "**nimi ni li seme?** `n`\n" + 
+            "**alasa sitelen** `a`\n" + 
+            "**linja nimi** `l`"
         )
         .addField(
             "__Other / ante__",
-            "**settings** `set`, `ante`\n" + 
-            "**statistics** `stats`, `lipu`\n" + 
-            "**toki** `toki`\n" + 
+            "**settings** `set`\n" + 
+            "**statistics** `stats`\n" + 
             "**mu** `mu`"
         )
     }
     else switch (input) {
-        case "nnls":
         case "n":
             return embed
             .setTitle("nimi ni li seme?")
@@ -34,11 +32,10 @@ export function help(input: string): MessageEmbed {
                 "I choose a tokiponized version of a place or language name (e. g. ma Motowa, toki Sumi etc.), and " + 
                 "you have to guess its English equivalent. If you succeed, you extend your streak. " + 
                 "Otherwise, the streak goes to zero, but the biggest streak is saved.\n\n" + 
-                `\`${prefix}nnls\` show the last unguessed name or choose a new one\n` + 
-                `\`${prefix}nnls [...]\` make your guess and choose a next name\n` + 
-                `\`${prefix}nnls -[...]\` make your guess and stop`
+                `\`${prefix}n\` show the last unguessed name or choose a new one\n` + 
+                `\`${prefix}n [...]\` make your guess and choose a next name\n` + 
+                `\`${prefix}n -[...]\` make your guess and stop`
             );
-        case "as":
         case "a":
             return embed
             .setTitle("alasa sitelen")
@@ -46,11 +43,10 @@ export function help(input: string): MessageEmbed {
                 "I choose a toki pona word, and you have to guess it letter by letter. " + 
                 "If your letter occurs many times within the word, only one is shown. " + 
                 "You can make only 5 mistakes. But no worries, no one will be hanged in the end:)\n\n" + 
-                `\`${prefix}as\` start a new game or continue the last one\n` + 
-                `\`${prefix}as [letter]\` make your guess\n` + 
-                `\`${prefix}as [word]\` guess the whole word (finishes the game)`
+                `\`${prefix}a\` start a new game or continue the last one\n` + 
+                `\`${prefix}a [letter]\` make your guess\n` + 
+                `\`${prefix}a [word]\` guess the whole word (finishes the game)`
             );
-        case "ln":
         case "l":
             return embed
             .setTitle("linja nimi")
@@ -61,44 +57,38 @@ export function help(input: string): MessageEmbed {
                 "Whoever says the last word wins " + 
                 "(opponent has no words to continue the thread or all pu words have been used). " + 
                 "Be aware, I am not spitting random words. Beat me if you can!\n\n" + 
-                `\`${prefix}ln\` start a new game or continue the last one\n` + 
-                `\`${prefix}ln [...]\` make your turn by the rules\n` + 
-                `\`${prefix}ln hint\`, \`${prefix}ln h\` show all of your options\n` + 
-                `\`${prefix}ln cancel\`, \`${prefix}ln c\` cancel the game. This counts as loosing in your stats.`
+                `\`${prefix}l\` start a new game or continue the last one\n` + 
+                `\`${prefix}l [...]\` make your turn by the rules\n` + 
+                `\`${prefix}l hint\` show all of your options\n` + 
+                `\`${prefix}l cancel\` cancel the game. This counts as loosing in your stats.`
             )
         case "set":
-        case "ante":
             return embed
             .setTitle("Settings")
             .setDescription(
                 "This command changes your settings."
             )
             .addField(
-                "__nimi ni li seme?__ `nnls`, `n`",
-                `\`${prefix}set nnls ale\`, \`${prefix}set nnls ali\` ` + 
+                "__nimi ni li seme?__ `n`",
+                `\`${prefix}set n ale\` ` + 
                 `switch dictionary to all proper names mentioned in the Book (default)\n` + 
-                `\`${prefix}set nnls ma\` switch dictionary to place names only\n` + 
-                `\`${prefix}set nnls toki\` switch dictionary to language names only`
+                `\`${prefix}set n ma\` switch dictionary to place names only\n` + 
+                `\`${prefix}set n toki\` switch dictionary to language names only`
             )
             .addField(
-                "__alasa sitelen__ `as`, `a`",
-                `\`${prefix}set as pu\` switch dictionary to the Book (default)\n` + 
-                `\`${prefix}set as un\`, \`${prefix}set as nap\` switch dictionary to *nimi ale pona* (pu + unofficial)`                
+                "__alasa sitelen__ `a`",
+                `\`${prefix}set a pu\` switch dictionary to the Book (default)\n` + 
+                `\`${prefix}set a nap\` switch dictionary to *nimi ale pona* (pu + unofficial)`                
             )
             .addField(
                 "__mentions__ `@`",
-                `\`${prefix}set @ off\`, \`${prefix}set @ ala\` turn mentions off (default)\n` + 
-                `\`${prefix}set @ on\`, \`${prefix}set @ lon\` turn mentions on`
+                `\`${prefix}set @ off\` turn mentions off (default)\n` + 
+                `\`${prefix}set @ on\` turn mentions on`
             );
         case "stats":
-        case "lipu":
             return embed
             .setTitle("Statistics")
             .setDescription("Shows your scores in the games.");
-        case "toki":
-            return embed
-            .setTitle("toki")
-            .setDescription("sina wile toki la o toki!");
         case "mu":
             return embed
             .setTitle("mu")
