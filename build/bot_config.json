@@ -1,0 +1,5 @@
+{
+    "prefix": ";",
+    "accs_path": "./accounts/",
+    "ignore_bots": true
+}

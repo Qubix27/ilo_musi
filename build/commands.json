@@ -1,0 +1,8 @@
+{
+    "commands": {
+        "help": ["h", "help"],
+        "setting": ["set"],
+        "linja_nimi": ["ln", "linja-nimi"],
+        "guess_the_name": ["gtn", "guess-the-name"]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "commands": {
+        "help": ["help"],
+        "setting": ["set", "ante"],
+        "stats": ["stats", "lipu"],
+        "nimi_ni_li_seme": ["nnls", "n"],
+        "alasa_sitelen": ["as", "a"],
+        "linja_nimi": ["ln", "l"],
+        "mama": ["mama"]
+    }
+}
