@@ -13,14 +13,14 @@ export function help(input: string): MessageEmbed {
         )
         .addField(
             "__Games / musi__",
-            "**nimi ni li seme?** `nnls` `n`\n" + 
-            "**alasa sitelen** `as` `a`\n" + 
-            "**linja nimi** `ln` `l`"
+            "**nimi ni li seme?** `nnls`, `n`\n" + 
+            "**alasa sitelen** `as`, `a`\n" + 
+            "**linja nimi** `ln`, `l`"
         )
         .addField(
             "__Other / ante__",
-            "**settings** `set` `ante`\n" + 
-            "**statistics** `stats` `lipu`\n" + 
+            "**settings** `set`, `ante`\n" + 
+            "**statistics** `stats`, `lipu`\n" + 
             "**toki** `toki`\n" + 
             "**mu** `mu`"
         )
@@ -63,8 +63,8 @@ export function help(input: string): MessageEmbed {
                 "Be aware, I am not spitting random words. Beat me if you can!\n\n" + 
                 `\`${prefix}ln\` start a new game or continue the last one\n` + 
                 `\`${prefix}ln [...]\` make your turn by the rules\n` + 
-                `\`${prefix}ln hint\` \`${prefix}ln h\` show all of your options\n` + 
-                `\`${prefix}ln cancel\` \`${prefix}ln c\` cancel the game. This counts as loosing in your stats.`
+                `\`${prefix}ln hint\`, \`${prefix}ln h\` show all of your options\n` + 
+                `\`${prefix}ln cancel\`, \`${prefix}ln c\` cancel the game. This counts as loosing in your stats.`
             )
         case "set":
         case "ante":
@@ -74,21 +74,21 @@ export function help(input: string): MessageEmbed {
                 "This command changes your settings."
             )
             .addField(
-                "__nimi ni li seme?__ `nnls` `n`",
-                `\`${prefix}set nnls ale\` \`${prefix}set nnls ali\` ` + 
+                "__nimi ni li seme?__ `nnls`, `n`",
+                `\`${prefix}set nnls ale\`, \`${prefix}set nnls ali\` ` + 
                 `switch dictionary to all proper names mentioned in the Book (default)\n` + 
                 `\`${prefix}set nnls ma\` switch dictionary to place names only\n` + 
                 `\`${prefix}set nnls toki\` switch dictionary to language names only`
             )
             .addField(
-                "__alasa sitelen__ `as` `a`",
+                "__alasa sitelen__ `as`, `a`",
                 `\`${prefix}set as pu\` switch dictionary to the Book (default)\n` + 
-                `\`${prefix}set as un\` \`${prefix}set as nap\` switch dictionary to *nimi ale pona* (pu + unofficial)`                
+                `\`${prefix}set as un\`, \`${prefix}set as nap\` switch dictionary to *nimi ale pona* (pu + unofficial)`                
             )
             .addField(
                 "__mentions__ `@`",
-                `\`${prefix}set @ off\` \`${prefix}set @ ala\` turn mentions off (default)\n` + 
-                `\`${prefix}set @ on\` \`${prefix}set @ lon\` turn mentions on`
+                `\`${prefix}set @ off\`, \`${prefix}set @ ala\` turn mentions off (default)\n` + 
+                `\`${prefix}set @ on\`, \`${prefix}set @ lon\` turn mentions on`
             );
         case "stats":
         case "lipu":
