@@ -14,9 +14,9 @@ export function help(input: string): MessageEmbed {
         )
         .addField(
             "__Games / musi__",
-            "**nimi ni li seme?** (guess the word) `nnls`\n" + 
-            "**alasa sitelen** (hangman) `als`\n" + 
-            "**linja nimi** (word chain) `ln`"
+            "**nimi ni li seme?** (guess the word) `nnls` or `n`\n" + 
+            "**alasa sitelen** (hangman) `als` or `a`\n" + 
+            "**linja nimi** (word chain) `ln` or `l`"
         )
         .addField(
             "__Other / ante__",
@@ -35,8 +35,7 @@ export function help(input: string): MessageEmbed {
                 `\`${prefix}nnls\` guess a new name (or last one, if there is)\n` + 
                 `\`${prefix}nnls [...]\` make your guess and play again\n` + 
                 `\`${prefix}nnls -[...]\` make your guess and stop`
-            )
-            .setFooter("alias: `n`");
+            );
         case "als": 
         case "a":
             return embed
@@ -48,8 +47,7 @@ export function help(input: string): MessageEmbed {
                 `\`${prefix}als\` start a new game (or continue the last one, if there is)\n` + 
                 `\`${prefix}als [letter]\` make your guess\n` + 
                 `\`${prefix}als [word]\` guess the whole word (finishes the game)`
-            )
-            .setFooter("alias: `a`");
+            );
         case "ln":
         case "l":
             return embed
@@ -65,21 +63,20 @@ export function help(input: string): MessageEmbed {
                 `\`${prefix}ln [...]\` make your turn\n` + 
                 `\`${prefix}ln hint\` show all of your options\n` + 
                 `\`${prefix}ln cancel\` cancel the game (counts as loosing)`
-            )
-            .setFooter("alias: `l`");
+            );
         case "set":
             return embed
             .setTitle("Settings")
             .setDescription("This command changes your settings.")
             .addField(
-                "__nimi ni li seme?__ `n`",
+                "__nimi ni li seme?__ `nnls`, `n`",
                 `\`${prefix}set nnls ale\` ` + 
                 `switch dictionary to all proper names mentioned in the Book (default)\n` + 
                 `\`${prefix}set nnls ma\` switch dictionary to place names only\n` + 
                 `\`${prefix}set nnls toki\` switch dictionary to language names only`
             )
             .addField(
-                "__alasa sitelen__ `a`",
+                "__alasa sitelen__ `als`, `a`",
                 `\`${prefix}set als pu\` switch dictionary to the Book (default)\n` + 
                 `\`${prefix}set als nap\` switch dictionary to *nimi ale pona* (pu + unofficial)`                
             )
