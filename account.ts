@@ -90,6 +90,7 @@ export class Account {
                     default:
                         return "";
                 }
+            case "nnls":
             case "n":
                 switch (args[1]) {
                     case "ma":
@@ -102,6 +103,7 @@ export class Account {
                     default:
                         return "";
                 }
+            case "als":
             case "a":
                 switch (args[1]) {
                     case "pu":

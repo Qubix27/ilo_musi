@@ -27,12 +27,15 @@ export function message_listener(message: Message) {
     }
 
     switch (command) {
+        case 'nnls':
         case 'n':
             reply((new NimiNiLiSeme(message.author.id)).respond(input));
             break;
+        case 'als':
         case 'a':
             reply((new AlasaSitelen(message.author.id)).respond(input));
             break;
+        case 'ln':
         case 'l':
             reply((new LinjaNimi(message.author.id)).respond(input));
             break;
