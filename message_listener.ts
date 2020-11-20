@@ -1,6 +1,5 @@
 import * as config from "./bot_config.json";
 import { Message } from "discord.js";
-import { commands } from "./commands.json";
 import { NimiNiLiSeme } from "./nimi_ni_li_seme";
 import { LinjaNimi } from "./linja_nimi";
 import { Account } from "./account";
@@ -27,48 +26,35 @@ export function message_listener(message: Message) {
         );
     }
 
-    if (commands.nimi_ni_li_seme.includes(command)) {
-        reply((new NimiNiLiSeme(message.author.id)).respond(input));
-        return;
-    }
-
-    if (commands.alasa_sitelen.includes(command)) {
-        reply((new AlasaSitelen(message.author.id)).respond(input))
-        return;
-    }
-
-    if (commands.linja_nimi.includes(command)) {
-        reply((new LinjaNimi(message.author.id)).respond(input));
-        return;
-    }
-
-    if (str.startsWith("toki")) {
-        reply("toki!");
-        return;
-    }
-
-    if (command == "mu") {
-        message.channel.send("mu");
-        return;
-    }
-
-    if (commands.setting.includes(command)) {
-        reply(account.set(args));
-        return;
-    }
-
-    if (commands.stats.includes(command)) {
-        message.channel.send(stats(message.author));
-        return;
-    }
-
-    if (commands.help.includes(command)) {
-        message.channel.send(help(input));
-        return;
-    }
-
-    if (commands.mama.includes(command)) {
-        message.channel.send(mama());
-        return;
+    switch (command) {
+        case 'nnls':
+        case 'n':
+            reply((new NimiNiLiSeme(message.author.id)).respond(input));
+            break;
+        case 'als':
+        case 'a':
+            reply((new AlasaSitelen(message.author.id)).respond(input));
+            break;
+        case 'ln':
+        case 'l':
+            reply((new LinjaNimi(message.author.id)).respond(input));
+            break;
+        case 'set':
+            reply(account.set(args));
+            break;
+        case 'stats':
+            message.channel.send(stats(message.author));
+            break;
+        case 'help':
+            message.channel.send(help(input));
+            break;
+        case 'mu':
+            message.channel.send("mu");
+            break;
+        case 'mama':
+            message.channel.send(mama());
+            break;
+        default:
+            break;
     }
 }

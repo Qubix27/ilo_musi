@@ -79,12 +79,10 @@ export class Account {
         switch (args[0]) {
             case "@":
                 switch (args[1]) {
-                    case "lon":
                     case "on":
                         this.settings.mentions = true;
                         this.update();
                         return "o, nimi sina li pona mute :)";
-                    case "ala":
                     case "off":
                         this.settings.mentions = false;
                         this.update();
@@ -105,12 +103,11 @@ export class Account {
                     default:
                         return "";
                 }
-            case "as":
+            case "als":
             case "a":
                 switch (args[1]) {
                     case "pu":
                         return this.change_as_mode("pu");
-                    case "un":
                     case "nap":
                         return this.change_as_mode("un");
                 }
