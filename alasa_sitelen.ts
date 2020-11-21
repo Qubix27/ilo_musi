@@ -1,11 +1,12 @@
+import { Message } from "discord.js";
 import { pu, pre_pu, post_pu } from "./dictionary.json";
 import { Game } from "./game";
 
 export class AlasaSitelen extends Game {
-    constructor(user_id: string) {
-        super(user_id);
-        switch (this.account.as_stats.mode) {
-            case "un":
+    constructor(message: Message, cmd_entered: boolean) {
+        super(message, cmd_entered);
+        switch (this.account.als_stats.mode) {
+            case "nap":
                 this.dict.push(...pre_pu);
                 this.dict.push(...post_pu);
             case "pu":
@@ -25,16 +26,37 @@ export class AlasaSitelen extends Game {
         looses: number
     }
     {
-        return this.account.as_stats[this.account.as_stats.mode];
+        return this.account.als_stats[this.account.als_stats.mode];
     }
 
     respond(input: string): string {
-        if (this.stats.current_word == "") return this.start();
-        else if (input == "") return this.game_state();
+        if (this.cmd_entered) {
+            switch (input) {
+                case "":
+                    return this.stats.current_word ? this.game_state() : this.start();
+                case "pu taso":
+                case "pu":
+                    return this.set_dict("pu");
+                case "nimi ale pona":
+                case "nap":
+                    return this.set_dict("nap");
+                default:
+                    return "";
+            }
+        }
+        else if (!input) return this.game_state()
         else return this.check(input);
     }
 
+    set_dict(mode: string): string {
+        this.account.als_stats.mode = mode;
+        this.account.update();
+        return `pona. tenpo ni la mi pana e nimi ${mode == "pu" ? "pu taso" : "ale pona"}` + 
+        ` tawa sina lon musi pi alasa sitelen.`;
+    }
+
     start(): string {
+        this.account.current_game = "als";
         this.stats.current_word = this.dict[this.dict.length * Math.random() << 0];
         for (const _ of this.stats.current_word) this.stats.guessed.push(false);
         this.account.update();
@@ -75,6 +97,7 @@ export class AlasaSitelen extends Game {
     }
 
     end(win: boolean): string {
+        this.account.current_game = "";
         this.stats.current_word = "";
         this.stats.wrong_guesses = 0;
         this.stats.guessed = [];

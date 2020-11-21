@@ -1,24 +1,25 @@
+import { Message } from "discord.js";
 import { Game } from "./game";
 import { ma, toki } from "./names.json"
 
 export class NimiNiLiSeme extends Game {
-    constructor(user_id: string) {
-        super(user_id);
+    constructor(message: Message, cmd_entered: boolean) {
+        super(message, cmd_entered);
         switch (this.account.nnls_stats.mode) {
             case "ma":
-                Object.assign(this.nimi, ma);
+                Object.assign(this.dict, ma);
                 break;
             case "toki":
-                Object.assign(this.nimi, toki);
+                Object.assign(this.dict, toki);
                 break;
             case "ale":
-                Object.assign(this.nimi, ma);
-                Object.assign(this.nimi, toki);
+                Object.assign(this.dict, ma);
+                Object.assign(this.dict, toki);
                 break;
         }
     }
 
-    nimi: Object = {}
+    dict: Object = {}
 
     get stats(): {
         current_name: string,
@@ -30,29 +31,55 @@ export class NimiNiLiSeme extends Game {
     }
 
     respond(input: string): string {
-        if (this.stats.current_name == "") return this.new_name();
-        if (input == "") return `${this.stats.current_name} li seme lon toki Inli?`;
+        if (this.cmd_entered) {
+            switch (input) {
+                case "":
+                    return this.stats.current_name ?
+                        `${this.stats.current_name} li seme lon toki Inli?` :
+                        this.new_name();
+                case "ma taso":
+                case "ma":
+                    return this.set_dict("ma");
+                case "toki taso":
+                case "toki":
+                    return this.set_dict("toki");
+                case "ma en toki":
+                case "ale":
+                case "ali":
+                    return this.set_dict("ale");
+                default:
+                    return "";
+            }
+        }
         if (input.startsWith('-')) return this.check(input.slice(1).trimLeft());
         else return this.check(input) + "\n" + this.new_name();
     }
 
+    set_dict(mode: string): string {
+        this.account.nnls_stats.mode = mode;
+        this.account.update();
+        return `pona. tenpo ni la mi pana e nimi ${mode}${mode == "ale" ? "" : " taso"} tawa sina.`;
+    }
+
     new_name(): string {
-        const keys = Object.keys(this.nimi);
+        this.account.current_game = "nnls";
+        const keys = Object.keys(this.dict);
         this.stats.current_name = keys[keys.length * Math.random() << 0];
         this.account.update();
         return `${this.stats.current_name} li seme lon toki Inli?`;
     }
 
     check(name: string): string {
-        if (this.nimi[this.stats.current_name].includes(name)) {
+        this.account.current_game = "";
+        if (this.dict[this.stats.current_name].includes(name)) {
             this.stats.current_name = "";
             this.stats.current_streak++;
             this.account.update();
             return `ni li lon! nanpa linja sina li ${this.stats.current_streak}.`;
         }
         else {
-            let str = "ni li lon ala. " + 
-                `${this.stats.current_name} li "${this.nimi[this.stats.current_name].join('" anu "')}".`;
+            let str = (name ? "ni li lon ala. " : "") + 
+                `${this.stats.current_name} li "${this.dict[this.stats.current_name].join('" anu "')}".`;
             if (this.stats.current_streak > this.stats.best_streak) {
                 this.stats.best_streak = this.stats.current_streak;
                 str += `\n${this.stats.current_streak} li nanpa linja sewi sin sina!`;

@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { prefix } from "./bot_config.json";
+import { prefix as p } from "./bot_config.json";
 
 export function help(input: string): MessageEmbed {
     const embed = new MessageEmbed()
@@ -9,47 +9,73 @@ export function help(input: string): MessageEmbed {
         .setTitle("Help")
         .setDescription(
             "toki! You can play word games in toki pona with me. " + 
-            `Here is the list of my commands, type \`${prefix}[command]\` to use one of these. ` + 
-            `Type \`${prefix}help [command]\` to get more information about it. musi pona!`
+            `Here is the list of my games and commands. ` + 
+            `Type \`${p}help [command]\` to get more information. musi pona!`
         )
         .addField(
-            "__Games / musi__",
-            "**nimi ni li seme?** (guess the word) `nnls` or `n`\n" + 
-            "**alasa sitelen** (hangman) `als` or `a`\n" + 
-            "**linja nimi** (word chain) `ln` or `l`"
+            "`;nnls` __NIMI NI LI SEME?__ (guess the word)",
+            "Guess a place or language name in toki pona. " + 
+            `(\`${p}help nnls\` for more info)`
         )
         .addField(
-            "__Other / ante__",
-            "**settings** `set`\n" + 
-            "**statistics** `stats`\n" + 
-            "**mu** `mu`"
+            "`;als`   __ALASA SITELEN__ (hangman)",
+            "Guess a toki pona word letter by letter. " +
+            `(\`${p}help als\` for more info)`
+        )
+        .addField(
+            "`;ln`     __LINJA NIMI__ (word chain)",
+            "We make a chain out of words, where each next word starts with a letter in the last word's syllable. " + 
+            `(\`${p}help ln\` for more info)`
+        )
+        .addField(
+            "Other commands",
+            `\`${p}stats\` show statictics\n` + 
+            `\`${p}@\` toggle mentions\n` + 
+            `\`${p}credits\` authors`
         )
     }
     else switch (input) {
         case "nnls":
-        case "n":
             return embed
             .setTitle("nimi ni li seme? (guess the name)")
             .setDescription(
-                "Guess a place or language name in toki pona. Try to get a long streak!\n\n" + 
-                `\`${prefix}nnls\` guess a new name (or last one, if there is)\n` + 
-                `\`${prefix}nnls [...]\` make your guess and play again\n` + 
-                `\`${prefix}nnls -[...]\` make your guess and stop`
+                "Guess a place or language name in toki pona. Try to get a long streak!\n"
+            )
+            .addField(
+                "How to play",
+                `\`${p}nnls\` guess a new name (or last one, if there is)\n` + 
+                `\`${p}[...]\` make your guess and play again\n` + 
+                `\`${p}\` skip guess and play again\n\n` + 
+                `\`${p}-[...]\` make your guess and stop\n` + 
+                `\`${p}-\` skip guess and stop`
+            )
+            .addField(
+                "Settings",
+                `\`${p}nnls ale\` ` + 
+                `switch dictionary to all proper names mentioned in the Book (default)\n` + 
+                `\`${p}nnls ma\` switch dictionary to place names only\n` + 
+                `\`${p}nnls toki\` switch dictionary to language names only`
             );
-        case "als": 
-        case "a":
+        case "als":
             return embed
             .setTitle("alasa sitelen (hangman)")
             .setDescription(
                 "Guess a toki pona word letter by letter. " + 
                 "If your letter occurs many times within the word, only one is shown. " + 
-                "You can make only 5 mistakes. At least, no one will be hanged in the end...\n\n" + 
-                `\`${prefix}als\` start a new game (or continue the last one, if there is)\n` + 
-                `\`${prefix}als [letter]\` make your guess\n` + 
-                `\`${prefix}als [word]\` guess the whole word (finishes the game)`
+                "You can make only 5 mistakes. At least, no one will be hanged in the end...\n"
+            )
+            .addField(
+                "How to play",
+                `\`${p}als\` start a new game (or continue the last one, if there is)\n` + 
+                `\`${p}[letter]\` make your guess\n` + 
+                `\`${p}[word]\` guess the whole word (finishes the game)`
+            )
+            .addField(
+                "Settings",
+                `\`${p}als pu\` switch dictionary to the Book (default)\n` + 
+                `\`${p}als nimi ale pona\` switch dictionary to *nimi ale pona* (pu + unofficial)`
             );
         case "ln":
-        case "l":
             return embed
             .setTitle("linja nimi (word chain)")
             .setDescription(
@@ -58,41 +84,33 @@ export function help(input: string): MessageEmbed {
                 "every next word must start with a letter in the last word’s syllable " + 
                 "(e. g. suno -> olin -> laso -> sike etc.). No word can be repeated within a game. " + 
                 "You win if your opponent has no words to continue the chain. " + 
-                "Be aware, I am not spitting random words. Beat me if you can!\n\n" + 
-                `\`${prefix}ln\` start a new game (or continue the last one, if there is)\n` + 
-                `\`${prefix}ln [...]\` make your turn\n` + 
-                `\`${prefix}ln hint\` show all of your options\n` + 
-                `\`${prefix}ln cancel\` cancel the game (counts as loosing)`
-            );
-        case "set":
-            return embed
-            .setTitle("Settings")
-            .setDescription("This command changes your settings.")
-            .addField(
-                "__nimi ni li seme?__ `nnls`, `n`",
-                `\`${prefix}set nnls ale\` ` + 
-                `switch dictionary to all proper names mentioned in the Book (default)\n` + 
-                `\`${prefix}set nnls ma\` switch dictionary to place names only\n` + 
-                `\`${prefix}set nnls toki\` switch dictionary to language names only`
+                "Be aware, I am not spitting random words. Beat me if you can!\n"
             )
             .addField(
-                "__alasa sitelen__ `als`, `a`",
-                `\`${prefix}set als pu\` switch dictionary to the Book (default)\n` + 
-                `\`${prefix}set als nap\` switch dictionary to *nimi ale pona* (pu + unofficial)`                
-            )
-            .addField(
-                "__mentions__ `@`",
-                `\`${prefix}set @ off\` turn mentions off (default)\n` + 
-                `\`${prefix}set @ on\` turn mentions on`
+                "How to play",
+                `\`${p}ln\` or \`${p}ln [word]\` start a new game (or continue the last one, if there is)\n` + 
+                `\`${p}[word]\` make your turn\n` + 
+                `\`${p}hint\` show all of your options\n` + 
+                `\`${p}cancel\` cancel the game (counts as loosing)`
             );
         case "stats":
             return embed
             .setTitle("Statistics")
-            .setDescription(`\`${prefix}stats\` shows your scores in the games.`);
-        case "mu":
+            .setDescription(`\`${p}stats\` shows your scores in the games.`);
+        case "@":
             return embed
-            .setTitle("mu")
-            .setDescription("mu")
-            .setFooter("mu");
+            .setTitle("Mentions")
+            .setDescription(
+                `\`${p}@\` toggles, whether to mention you in the replies or not ` + 
+                "(turned off by default)"
+            );
+        case "credits":
+            return embed
+            .setTitle("Credits")
+            .setDescription(
+                "<@464904025469616134> made this bot\n" + 
+                "<@586692123642822676> suggetions and testing\n" + 
+                "<@385920914472304663> initial idea"
+            )
     }
 }

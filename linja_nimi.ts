@@ -7,14 +7,14 @@ export class LinjaNimi extends Game {
         const stats = this.account.ln_stats;
         switch (input) {
             case "hint":
-                if (stats.game_started) {
+                if (!this.cmd_entered) {
                     if (stats.last_word)
                         return this.options(stats.last_word).join(", ");
                     else return "o toki e nimi pi nanpa wan.";
                 }
-                else return "sina open ala e musi pi linja nimi.";
+                else return "linja nimi la sina ken kepeken nimi pu taso.";
             case "cancel":
-                if (stats.game_started) {
+                if (!this.cmd_entered) {
                     if (stats.last_word)
                         return `musi ni pi linja nimi li pini. sina wile ala awen la ${this.end(false)}`;
                     else {
@@ -22,25 +22,31 @@ export class LinjaNimi extends Game {
                         return "musi ni pi linja nimi li pini. sina anpa ala tan ni: sina open ala.";
                     }
                 }
-                else return "sina open ala e musi pi linja nimi.";
+                else return "linja nimi la sina ken kepeken nimi pu taso.";
             case "":
-                return this.start();
+                if (this.account.current_game != "ln") return this.start();
+                else if (this.account.ln_stats.last_word)
+                    return `tenpo ni la sina musi e linja nimi. mi toki e nimi "${this.account.ln_stats.last_word}".`;
+                else return "o toki e nimi pi nanpa wan.";
             default:
-                if (stats.game_started) {
+                if (this.account.current_game == "ln") {
+                    let str = "";
+                    if (this.cmd_entered)
+                        str = `tenpo ni la sina musi e linja nimi. mi toki e nimi "${this.account.ln_stats.last_word}".\n`;
                     if (stats.words_left.includes(input)) {
                         if (stats.last_word && !this.options(stats.last_word).includes(input)) {
-                            return "sina ken ala kepeken nimi ni tan ni: " + 
+                            return str + "sina ken ala kepeken nimi ni tan ni: " + 
                                 "pini pi nimi mi en open pi nimi sina li sama ala.";
                         }
                         else if (!this.options(input).length)
-                            return this.end(true);
-                        else return this.play(input);
+                            return str + this.end(true);
+                        else return str + this.play(input);
                     }
                     else {
-                        let str = "sina ken ala kepeken nimi ni tan ni: ";
-                        if (!pu.includes(input)) str += "nimi ni li pu ala.";
-                        else str += "mi anu sina li kepeken nimi ni lon musi ni.";
-                        return str;
+                        if (pu.includes(input))
+                            return str + "sina ken ala kepeken nimi ni tan ni: " + 
+                                "mi anu sina li kepeken nimi ni lon musi ni.";
+                        else return str + "linja nimi la sina ken kepeken nimi pu taso.";
                     }
                 }
                 else {
@@ -48,23 +54,16 @@ export class LinjaNimi extends Game {
                         this.start();
                         return this.play(input);
                     }
-                    else return "";
+                    else return "linja nimi la sina ken kepeken nimi pu taso.";
                 }
         }
     }
 
     start(): string {
-        if (!this.account.ln_stats.game_started) {
-            this.account.ln_stats.words_left = pu.slice();
-            this.account.ln_stats.game_started = true;
-            this.account.update();
-            return "o toki e nimi pi nanpa wan.";
-        }
-        else {
-            if (this.account.ln_stats.last_word)
-                return `tenpo ni la sina jo e musi pi linja nimi. mi toki e nimi "${this.account.ln_stats.last_word}".`;
-            else return "o toki e nimi pi nanpa wan.";
-        }
+        this.account.ln_stats.words_left = pu.slice();
+        this.account.current_game = "ln";
+        this.account.update();
+        return "o toki e nimi pi nanpa wan.";
     }
 
     end(win: boolean): string {
@@ -75,7 +74,7 @@ export class LinjaNimi extends Game {
     }
 
     reset(do_upd: boolean): void {
-        this.account.ln_stats.game_started = false;
+        this.account.current_game = "";
         this.account.ln_stats.last_word = "";
         this.account.ln_stats.words_left = [];
         if (do_upd) this.account.update();

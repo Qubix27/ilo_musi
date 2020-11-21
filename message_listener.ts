@@ -9,52 +9,49 @@ import { mama } from "./mama";
 import { help } from "./help";
 
 export function message_listener(message: Message) {
+    if (!message.content.startsWith(config.prefix)) return;
     if (config.ignore_bots && message.author.bot) return;
 
-    let str = message.content;
-    if (!str.startsWith(config.prefix)) return;
-    str = str.slice(config.prefix.length);
-    const args = str.split(/ +/);
-    if (args.length == 0) return;
-    const command = args.shift().toLowerCase();
+    const str = message.content.slice(config.prefix.length);
+    const command = str.split(/ +/)[0].toLowerCase();
     const input = str.slice(command.length).trimLeft();
     const account = new Account(message.author.id);
 
-    function reply(text: string): void {
-        if (text) message.channel.send(
-            (account.settings.mentions ? `${message.author} ` : "") + text
-        );
-    }
-
     switch (command) {
-        case 'nnls':
-        case 'n':
-            reply((new NimiNiLiSeme(message.author.id)).respond(input));
+        case "nnls":
+            new NimiNiLiSeme(message, true).reply(input);
             break;
-        case 'als':
-        case 'a':
-            reply((new AlasaSitelen(message.author.id)).respond(input));
+        case "als":
+            new AlasaSitelen(message, true).reply(input);
             break;
-        case 'ln':
-        case 'l':
-            reply((new LinjaNimi(message.author.id)).respond(input));
+        case "ln":
+            new LinjaNimi(message, true).reply(input);
             break;
-        case 'set':
-            reply(account.set(args));
-            break;
-        case 'stats':
+        case "stats":
             message.channel.send(stats(message.author));
             break;
-        case 'help':
+        case "help":
             message.channel.send(help(input));
             break;
-        case 'mu':
-            message.channel.send("mu");
-            break;
-        case 'mama':
+        case "credits":
             message.channel.send(mama());
             break;
-        default:
+        case "@":
+            message.channel.send(
+                account.toggle_mentions() ? `${message.author} o, nimi sina li pona a:)` : "jaki o weka!"
+            );
             break;
+        default:
+            switch (account.current_game) {
+                case "nnls":
+                    new NimiNiLiSeme(message, false).reply(str);
+                    break;
+                case "als":
+                    new AlasaSitelen(message, false).reply(str);
+                    break;
+                case "ln":
+                    new LinjaNimi(message, false).reply(str);
+                    break;
+            }
     }
 }
