@@ -31,7 +31,7 @@ export function help(input: string): MessageEmbed {
             "Other commands",
             `\`${p}stats\` show statictics\n` + 
             `\`${p}@\` toggle mentions\n` + 
-            `\`${p}credits\` authors`
+            `\`${p}credits\` authors & github link`
         )
     }
     else switch (input) {
@@ -110,7 +110,8 @@ export function help(input: string): MessageEmbed {
             .setDescription(
                 "<@464904025469616134> made this bot\n" + 
                 "<@586692123642822676> suggetions and testing\n" + 
-                "<@385920914472304663> initial idea"
+                "<@385920914472304663> initial idea\n" + 
+                "link for [GitHub repo](https://github.com/Qubix27/ilo_musi)"
             )
     }
 }
