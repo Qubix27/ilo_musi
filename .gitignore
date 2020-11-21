@@ -1,9 +1,5 @@
 /.env
 /node_modules
 /build/
-<<<<<<< HEAD
 /accounts/
 /test
-=======
-/accounts/
->>>>>>> 3e9e60c1ae6b58911f35420b6c09fae270bf750b
