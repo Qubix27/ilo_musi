@@ -31,8 +31,6 @@ export class LinjaNimi extends Game {
             default:
                 if (this.account.current_game == "ln") {
                     let str = "";
-                    if (this.cmd_entered)
-                        str = `tenpo ni la sina musi e linja nimi. mi toki e nimi "${this.account.ln_stats.last_word}".\n`;
                     if (stats.words_left.includes(input)) {
                         if (stats.last_word && !this.options(stats.last_word).includes(input)) {
                             return str + "sina ken ala kepeken nimi ni tan ni: " + 
