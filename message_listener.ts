@@ -12,8 +12,8 @@ export function message_listener(message: Message) {
     if (!message.content.startsWith(config.prefix)) return;
     if (config.ignore_bots && message.author.bot) return;
 
-    const str = message.content.slice(config.prefix.length);
-    const command = str.split(/ +/)[0].toLowerCase();
+    const str = message.content.slice(config.prefix.length).toLowerCase();
+    const command = str.split(/ +/)[0];
     const input = str.slice(command.length).trimLeft();
     const account = new Account(message.author.id);
 

@@ -52,11 +52,15 @@ export class NimiNiLiSeme extends Game {
                     return "";
             }
         }
+        if (input == "stop") {
+            this.account.current_game = "";
+            return "";
+        }
         if (input.startsWith('-')) {
             this.account.current_game = "";
             return this.check(input.slice(1).trimLeft());
         }
-        else return this.check(input) + "\n" + this.new_name();
+        else return this.check(input.trimLeft()) + "\n" + this.new_name();
     }
 
     set_dict(mode: string): string {
@@ -73,7 +77,7 @@ export class NimiNiLiSeme extends Game {
     }
 
     check(name: string): string {
-        if (this.dict[this.stats.current_name].includes(name)) {
+        if (this.dict[this.stats.current_name].map((str: string) => str.toLowerCase()).includes(name)) {
             this.stats.current_name = "";
             this.stats.current_streak++;
             this.account.update();
