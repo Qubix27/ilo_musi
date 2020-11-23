@@ -13,6 +13,8 @@ export class LinjaNimi extends Game {
                     else return "o toki e nimi pi nanpa wan.";
                 }
                 else return "linja nimi la sina ken kepeken nimi pu taso.";
+            case "quit":
+            case "stop":
             case "cancel":
                 if (!this.cmd_entered) {
                     if (stats.last_word)
@@ -24,9 +26,9 @@ export class LinjaNimi extends Game {
                 }
                 else return "linja nimi la sina ken kepeken nimi pu taso.";
             case "":
-                if (this.account.current_game != "ln") return this.start();
-                else if (this.account.ln_stats.last_word)
-                    return `tenpo ni la sina musi e linja nimi. mi toki e nimi "${this.account.ln_stats.last_word}".`;
+                if (this.account.current_game != "ln" && !stats.last_word) return this.start();
+                else if (stats.last_word)
+                    return `tenpo ni la sina musi e linja nimi. mi toki e nimi "${stats.last_word}".`;
                 else return "o toki e nimi pi nanpa wan.";
             default:
                 if (this.account.current_game == "ln") {

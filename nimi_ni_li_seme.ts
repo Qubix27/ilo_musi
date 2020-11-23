@@ -34,6 +34,7 @@ export class NimiNiLiSeme extends Game {
         if (this.cmd_entered) {
             switch (input) {
                 case "":
+                    this.account.current_game = "nnls";
                     return this.stats.current_name ?
                         `${this.stats.current_name} li seme lon toki Inli?` :
                         this.new_name();
@@ -51,7 +52,10 @@ export class NimiNiLiSeme extends Game {
                     return "";
             }
         }
-        if (input.startsWith('-')) return this.check(input.slice(1).trimLeft());
+        if (input.startsWith('-')) {
+            this.account.current_game = "";
+            return this.check(input.slice(1).trimLeft());
+        }
         else return this.check(input) + "\n" + this.new_name();
     }
 
@@ -62,7 +66,6 @@ export class NimiNiLiSeme extends Game {
     }
 
     new_name(): string {
-        this.account.current_game = "nnls";
         const keys = Object.keys(this.dict);
         this.stats.current_name = keys[keys.length * Math.random() << 0];
         this.account.update();
@@ -70,7 +73,6 @@ export class NimiNiLiSeme extends Game {
     }
 
     check(name: string): string {
-        this.account.current_game = "";
         if (this.dict[this.stats.current_name].includes(name)) {
             this.stats.current_name = "";
             this.stats.current_streak++;
