@@ -106,6 +106,7 @@ export class LinjaNimi extends Game {
         let out_len = 0;
         for (const w of ops) {
             if (!graph.out(w).length) return `${w}\n${this.end(false)}`;
+            if (graph.out(w).some(next => graph.out(next).length == 0)) continue;
             
             for (const in_ of graph.in(w)) {
                 out_len = graph.out(in_).length;
@@ -119,8 +120,6 @@ export class LinjaNimi extends Game {
                 }
             }
         }
-        if (!cands.length) cands = ops.slice();
-        cands = cands.filter(w => !graph.dangerous().includes(w));
         if (!cands.length) cands = ops.slice();
         const ans = cands[cands.length * Math.random() << 0];
         this.account.ln_stats.last_word = ans;

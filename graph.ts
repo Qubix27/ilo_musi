@@ -45,24 +45,4 @@ export class Graph {
         }
         return syllable;
     }
-
-    deadends(): string[] {
-        const de: string[] = [];
-
-        for (const [word, node] of this.map) {
-            if (!node.out.length) de.push(word);
-        }
-
-        return de;
-    }
-
-    dangerous(): string[] {
-        const dang: string[] = [];
-
-        for (const word of this.deadends()) {
-            dang.push(...this.in(word));
-        }
-
-        return dang;
-    }
 }
