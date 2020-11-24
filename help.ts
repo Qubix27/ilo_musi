@@ -29,7 +29,7 @@ export function help(input: string): MessageEmbed {
         )
         .addField(
             "Other commands",
-            `\`${p}stats\` show statictics\n` + 
+            /*`\`${p}stats\` show statictics\n` + */
             `\`${p}@\` toggle mentions\n` + 
             `\`${p}credits\` authors & github link`
         )
@@ -93,10 +93,10 @@ export function help(input: string): MessageEmbed {
                 `\`${p}hint\` show all of your options\n` + 
                 `\`${p}cancel\` cancel the game (counts as loosing)`
             );
-        case "stats":
+        /*case "stats":
             return embed
             .setTitle("Statistics")
-            .setDescription(`\`${p}stats\` shows your scores in the games.`);
+            .setDescription(`\`${p}stats\` shows your scores in the games.`);*/
         case "@":
             return embed
             .setTitle("Mentions")
