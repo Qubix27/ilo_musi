@@ -5,7 +5,7 @@ import { ma, toki } from "./names.json"
 export class NimiNiLiSeme extends Game {
     constructor(message: Message, cmd_entered: boolean) {
         super(message, cmd_entered);
-        switch (this.account.nnls_stats.mode) {
+        switch (this.account.glob_stats.nnls_mode) {
             case "ma":
                 Object.assign(this.dict, ma);
                 break;
@@ -23,11 +23,10 @@ export class NimiNiLiSeme extends Game {
 
     get stats(): {
         current_name: string,
-        current_streak: number,
-        best_streak: number
+        current_streak: number
     }
     {
-        return this.account.nnls_stats[this.account.nnls_stats.mode];
+        return this.account.nnls_stats[this.account.glob_stats.nnls_mode];
     }
 
     respond(input: string): string {
@@ -64,8 +63,8 @@ export class NimiNiLiSeme extends Game {
     }
 
     set_dict(mode: string): string {
-        this.account.nnls_stats.mode = mode;
-        this.account.update();
+        this.account.glob_stats.nnls_mode = mode;
+        this.account.update_stats();
         return `pona. tenpo ni la mi pana e nimi ${mode}${mode == "ale" ? "" : " taso"} tawa sina.`;
     }
 
@@ -86,9 +85,11 @@ export class NimiNiLiSeme extends Game {
         else {
             let str = (name ? "ni li lon ala. " : "") + 
                 `${this.stats.current_name} li "${this.dict[this.stats.current_name].join('" anu "')}".`;
-            if (this.stats.current_streak > this.stats.best_streak) {
-                this.stats.best_streak = this.stats.current_streak;
+            const mode = this.account.glob_stats.nnls_mode;
+            if (this.stats.current_streak > this.account.glob_stats[`nnls_${mode}_best`]) {
+                this.account.glob_stats[`nnls_${mode}_best`] = this.stats.current_streak;
                 str += `\n${this.stats.current_streak} li nanpa linja sewi sin sina!`;
+                this.account.update_stats();
             }
             this.stats.current_name = "";
             this.stats.current_streak = 0;

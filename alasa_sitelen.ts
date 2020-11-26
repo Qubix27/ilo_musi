@@ -5,7 +5,7 @@ import { Game } from "./game";
 export class AlasaSitelen extends Game {
     constructor(message: Message, cmd_entered: boolean) {
         super(message, cmd_entered);
-        switch (this.account.als_stats.mode) {
+        switch (this.account.glob_stats.als_mode) {
             case "nap":
                 this.dict.push(...pre_pu);
                 this.dict.push(...post_pu);
@@ -21,12 +21,10 @@ export class AlasaSitelen extends Game {
     get stats(): {
         current_word: string,
         wrong_guesses: number,
-        guessed: boolean[],
-        wins: number,
-        looses: number
+        guessed: boolean[]
     }
     {
-        return this.account.als_stats[this.account.als_stats.mode];
+        return this.account.als_stats[this.account.glob_stats.als_mode];
     }
 
     respond(input: string): string {
@@ -49,8 +47,8 @@ export class AlasaSitelen extends Game {
     }
 
     set_dict(mode: string): string {
-        this.account.als_stats.mode = mode;
-        this.account.update();
+        this.account.glob_stats.als_mode = mode;
+        this.account.update_stats();
         return `pona. tenpo ni la mi pana e nimi ${mode == "pu" ? "pu taso" : "ale pona"}` + 
         ` tawa sina lon musi pi alasa sitelen.`;
     }
@@ -101,8 +99,9 @@ export class AlasaSitelen extends Game {
         this.stats.current_word = "";
         this.stats.wrong_guesses = 0;
         this.stats.guessed = [];
-        win ? this.stats.wins++ : this.stats.looses++;
-        this.account.update();
+        const mode = this.account.glob_stats.als_mode;
+        win ? this.account.glob_stats[mode + "_wins"]++ : this.account.glob_stats[mode + "_looses"]++;
+        this.account.update_stats();
         return win ? "\nsina sewi!" : "\nsina anpa!";
     }
 

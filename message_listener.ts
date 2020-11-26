@@ -27,9 +27,9 @@ export function message_listener(message: Message) {
         case "ln":
             new LinjaNimi(message, true).reply(input);
             break;
-        /*case "stats":
+        case "stats":
             message.channel.send(stats(message.author));
-            break;*/
+            break;
         case "help":
             message.channel.send(help(input));
             break;

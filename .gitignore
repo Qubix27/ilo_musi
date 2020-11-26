@@ -1,5 +1,6 @@
 /.env
 /node_modules
 /build/
-/accounts/
-/test
+/accounts/*
+!global_stats.json
+/test.ts

@@ -29,7 +29,7 @@ export function help(input: string): MessageEmbed {
         )
         .addField(
             "Other commands",
-            /*`\`${p}stats\` show statictics\n` + */
+            `\`${p}stats\` show statictics\n` + 
             `\`${p}@\` toggle mentions\n` + 
             `\`${p}credits\` authors & github link`
         )

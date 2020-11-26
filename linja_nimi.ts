@@ -68,8 +68,8 @@ export class LinjaNimi extends Game {
 
     end(win: boolean): string {
         this.reset(false);
-        win ? this.account.ln_stats.wins++ : this.account.ln_stats.looses++;
-        this.account.update();
+        win ? this.account.glob_stats.ln_wins++ : this.account.glob_stats.ln_looses++;
+        this.account.update_stats();
         return win ? "sina sewi!" : "sina anpa!";
     }
 
