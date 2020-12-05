@@ -17,7 +17,7 @@ export abstract class Game {
     reply(input: string): void {
         const text = this.respond(input);
         this.message.channel.send(
-            (this.account.mentions ? `${this.message.author} ` : "") + (text ?? "mi sona ala e wile sina.")
+            (this.account.glob_stats.mentions ? `${this.message.author} ` : "") + (text ?? "mi sona ala e wile sina.")
         );
     }
 }
