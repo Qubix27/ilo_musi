@@ -7,6 +7,7 @@ const client = new Client();
 
 client.once('ready', () => {
     client.user.setActivity({name: `type ${prefix}help for help`, type: "PLAYING"});
+    console.log("logged in");
 });
 
 client.on('message', message_listener);
